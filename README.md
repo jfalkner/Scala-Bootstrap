@@ -4,6 +4,12 @@
 
 Working with Scala and still learning stuff? Bootstrap examples for a reasonable coding workflow and team dev process
 
+Stuff to add when time permits
+- Base repo that has a build.sbt, expected structure, test, coverage and pack
+- IntelliJ setup
+- Dep on other SBT single projects (RootRef) and multi projects (ProjectRef)
+- Bamboo CI config
+
 
 ## Private Forks of Public Repos
 
