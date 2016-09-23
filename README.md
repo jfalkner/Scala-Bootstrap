@@ -4,11 +4,24 @@
 
 Working with Scala and still learning stuff? Bootstrap examples for a reasonable coding workflow and team dev process
 
+- Build, test and run a scala project from scratch (in less than a minute!)
+  - Local setup. Changing your computer's config.
+  - VM via Vargrant, Virtualbox and Ansible. Won't change your computer's config.
+- Basic edit, test, code coverage and pack cycle
+  - Build via `sbt clean 
+  - Deploy via `sbt clean coverageOff pack`
+- Improvements
+  - Continuous Integration (CI)
+  - Peer-review via GitHub PRs
+  - CHANGELOG.md based on `git tag -ln`
+
 Stuff to add when time permits
 - Base repo that has a build.sbt, expected structure, test, coverage and pack
 - IntelliJ setup
 - Dep on other SBT single projects (RootRef) and multi projects (ProjectRef)
 - Bamboo CI config
+
+
 
 
 ## Private Forks of Public Repos
