@@ -8,7 +8,8 @@ Working with Scala and still learning stuff? Bootstrap examples for a reasonable
   - Local setup. Changing your computer's config.
   - VM via Vargrant, Virtualbox and Ansible. Won't change your computer's config.
 - Basic edit, test, code coverage and pack cycle
-  - Build via `sbt clean 
+  - Build via `sbt clean run`
+  - Test and Coverage via `sbt coverage test coverageReport`
   - Deploy via `sbt clean coverageOff pack`
 - Improvements
   - Continuous Integration (CI)
