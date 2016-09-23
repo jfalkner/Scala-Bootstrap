@@ -23,6 +23,49 @@ Stuff to add when time permits
 - Bamboo CI config
 
 
+## CHANGELOG.md based on `git tag -ln`
+
+["Semantic Versioning"](http://semver.org/) of the code is helpful. Just use it. Amongst other benefits, it allows a 1-to-1 mapping of a logical identifier such a "0.0.1" to a git commit that represents a release of the code. Adopting this convention means you force developers to `git tag` specific meaningful commits and maintain `built.sbt`'s `version in ThisBuild := "0.0.1"` versioning. 
+
+For example, if my codes semantic version is 1.2.3 then the codebase must have these things.
+
+```
+# build.sbt must have this string
+version in ThisBuild := "1.2.3"
+
+# after pushing the code related to 1.2.3 then the commit must be tagged and have the tag pushed
+git tag -a 1.2.3 -m "My changelog message. The code was updated to do xzy..."
+git push -u origin 1.2.3
+
+# Other use of the code can now checkout this version
+git clone repo_url
+git checkout 1.2.3
+
+# other Scala projects can import the tagged version as follows in build.sbt 
+lazy val my_project = (project in file(".")).dependsOn(other_project)
+lazy val other_project = RootProject(uri("http://github.com/jfalkner/scala-bootstrap.git#v1.2.3"))
+```
+
+All of the above is helpful since it makes it convenient to peg builds of the code or projects that use your code to a specific version. The `git tag` use also provides a convenient message for a changelog that displays these logical versions.
+
+You can now auto-generate your `CHANGELOG.md` with this line.
+
+```bash
+git tag -ln | sort -r > CHANGELOG.md
+```
+
+You'll now have a CHANGELOG.md such as the following.
+
+```
+v1.2.3          Fixed broken tests by importing correct libraries.
+v1.2.2          Patch to fix bug Z. See scala-boostrap#789
+v1.2.1          Patch to fix bug Y. See scala-boostrap#456
+v1.2.0          Refactored API to use new framework xyz. 50% faster performance.
+v1.1.94          Patch to fix bug X. See scala-boostrap#123
+...
+```
+
+Don't like the tag messages? Edit them via git and put pressure on whoever is making crappy log messages to improve them. You can use `git log 1.2.3` to see the full log message, author, time and commit hash. 
 
 
 ## Private Forks of Public Repos
