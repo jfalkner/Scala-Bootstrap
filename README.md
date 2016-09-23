@@ -14,7 +14,7 @@ Working with Scala and still learning stuff? Bootstrap examples for a reasonable
 - Improvements
   - Continuous Integration (CI)
   - Peer-review via GitHub PRs
-  - CHANGELOG.md based on `git tag -ln`
+  - [CHANGELOG.md based on `git tag -ln`](https://github.com/jfalkner/Scala-Bootstrap/blob/master/README.md#changelogmd-based-on-git-tag--ln)
 
 Stuff to add when time permits
 - Base repo that has a build.sbt, expected structure, test, coverage and pack
