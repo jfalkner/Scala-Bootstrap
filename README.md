@@ -23,6 +23,104 @@ Stuff to add when time permits
 - Bamboo CI config
 
 
+## Basic edit, test, code coverage and pack cycle
+
+Fork the [Scala Bootstrap Basic](https://github.com/jfalkner/Scala-Bootstrap-Basic) repository. It has everything setup for a basic testing, code coverage and pack/deploy cycle. You can use this repository as a starting point for any new scala project.
+
+Tests and code coverage are the main items to facilitate code review. Run `sbt clean coverage test coverageReport` to kick off an example cycle.
+
+```bash
+$ sbt clean coverage test coverageReport
+
+[info] Loading project definition from /Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/project
+[info] Set current project to Scala Bootstrap (in build file:/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/)
+[success] Total time: 0 s, completed Sep 29, 2016 9:38:17 PM
+[info] Set current project to Scala Bootstrap (in build file:/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/)
+[info] Updating {file:/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/}scala-bootstrap-basic...
+[info] Resolving jline#jline;2.12.1 ...
+[info] Done updating.
+[info] Compiling 1 Scala source to /Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/classes...
+[info] [info] Cleaning datadir [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data]
+[info] [info] Beginning coverage instrumentation
+[info] [info] Instrumentation completed [9 statements]
+[info] [info] Wrote instrumentation file [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data/scoverage.coverage.xml]
+[info] [info] Will write measurement data to [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data]
+[info] Compiling 2 Scala sources to /Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/test-classes...
+[info] CommandLineSpec
+[info]
+[info] Command line usage should
+[info] + stdout should mimic API
+[info]
+[info] Total for specification CommandLineSpec
+[info] Finished in 10 ms
+[info] 1 example, 0 failure, 0 error
+[info] ApiSpec
+[info]
+[info] API should
+[info] + Show usage if no arguments
+[info] + Show usage if wrong argument
+[info]
+[info] Total for specification ApiSpec
+[info] Finished in 1 ms
+[info] 2 examples, 0 failure, 0 error
+[info] Passed: Total 3, Failed 0, Errors 0, Passed 3
+[success] Total time: 6 s, completed Sep 29, 2016 9:38:24 PM
+[info] Waiting for measurement data to sync...
+[info] Reading scoverage instrumentation [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data/scoverage.coverage.xml]
+[info] Reading scoverage measurements...
+[info] Generating scoverage reports...
+[info] Written Cobertura report [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/coverage-report/cobertura.xml]
+[info] Written XML coverage report [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-report/scoverage.xml]
+[info] Written HTML coverage report [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-report/index.html]
+[info] Statement coverage.: 88.89%
+[info] Branch coverage....: 100.00%
+[info] Coverage reports completed
+[info] All done. Coverage was [88.89%]
+[success] Total time: 1 s, completed Sep 29, 2016 9:38:25 PM
+```
+
+Next look at the `scoverage` code coverage report by opening `target/scala-2.11/scoverage-report/index.html` in a browser. It shows an overview of the code and what classes, methods and branches were used. In this case there are 21 lines of code and 88.89% of them are covered by tests.
+
+![images/coverage.png]
+
+This sort of report summary is good. 89% coverage is high and likely means the codebase is in good shape, especially since there is a low line count. Low coverage often means that some classes or methods are entirely untested. In this case, there is just one class and it has high coverage. If a class is entirely untested, assume it is abandoned code and try to delete it. If it must be kept, explain why in a test that covers it. The same logic applies to methods. You can see coverage of methods and branches by clicking on a class. 
+
+![images/coverage_main.png]
+
+In this case notice that not all of the lines are green. The val `You win` is never used and it appears that the match has three conditions but only two are tested. The third test of using an argumetn of "I win" is never checked. This is a contrived case, but assuming it should be kept a unit test should be added that asserts if "I win" is passed, "You win" is returned. If more pessimistic, you could assume no one should ever win and it'd be more appropriate to trim these lines from the codebase.
+
+Coverage reports are nice. They let you confirm these expectations are met.
+
+- Does the code have any sort of testing?
+- What are the main use cases the code is expected to satisfy? Each should have at least one test explaining it, mocking up data and confirming that the code works.
+- What code should be trimmed because it is not used?
+
+If you skip out on any of the above, it'll likely mean more work later. Coverage reports and testing are a key part of the basic dev cycle.
+
+### Try editing the code and repeating the above review
+
+Assume the above was your code and you're optimistic and the "I win" case should be kept. Edit the `CommandLineSpec` to have a test showing that when the user types "I win" the code responds "You win".
+
+```scala
+    "I win should work" in {
+      stdout {
+        Main.main(Array[String]("I win"))
+      }.trim mustEqual Main.youWin
+    }
+```
+
+Re-run `sbt clean coverage test coverageReport` and re-visit the code coverage report. It'll now show 100% coverage.
+
+In general, this is a good dev cycle to start with. Make your code and get it to the point where the code coverage report looks good. Then open a PR and reference the report. It not only asserts that the code works, but it both helps the rest of the team and yourself remember what the code was intended to do and how to use it.
+
+### What else to learn from the basic setup
+
+There are a few nice things you can edit or otherwise copy-paste from the basic setup. When possible, it is setup so you can just browse through the files and they are self-explanatory. 
+
+- See `built.sbt` it has all the basic SBT project config for the test, coverage and pack cycle and other often used things such as project info, JVM options, maven hosted dependencies and depedencies in git repos.
+- The directory structure of Scala Bootstrap Basic is made to work with SBT. It is convenient to have a blank copy of the expected conventions. e.g. `build.sbt`, where to put source files and where to put tests.
+- Make tests and keep test-specific code out of `main/src`. Copy and paste the API and command-line based tests as needed to make your own. `CommandLineUtil` is also a helpful way to buffer stdout and stderr, if you expose a command-line interface. Similar helper traits are a good idea for whatever the main inputs and outputs you expect users to see.
+
 ## CHANGELOG.md based on `git tag -ln`
 
 ["Semantic Versioning"](http://semver.org/) of the code is helpful. Just use it. Amongst other benefits, it allows a 1-to-1 mapping of a logical identifier such a "0.0.1" to a git commit that represents a release of the code. Adopting this convention means you force developers to `git tag` specific meaningful commits and maintain `built.sbt`'s `version in ThisBuild := "0.0.1"` versioning. 
