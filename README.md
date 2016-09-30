@@ -81,11 +81,11 @@ $ sbt clean coverage test coverageReport
 
 Next look at the `scoverage` code coverage report by opening `target/scala-2.11/scoverage-report/index.html` in a browser. It shows an overview of the code and what classes, methods and branches were used. In this case there are 21 lines of code and 88.89% of them are covered by tests.
 
-![images/coverage.png]
+![Code Coverage Overview](images/coverage.png)
 
 This sort of report summary is good. 89% coverage is high and likely means the codebase is in good shape, especially since there is a low line count. Low coverage often means that some classes or methods are entirely untested. In this case, there is just one class and it has high coverage. If a class is entirely untested, assume it is abandoned code and try to delete it. If it must be kept, explain why in a test that covers it. The same logic applies to methods. You can see coverage of methods and branches by clicking on a class. 
 
-![images/coverage_main.png]
+![Main class code coverage](images/coverage_main.png)
 
 In this case notice that not all of the lines are green. The val `You win` is never used and it appears that the match has three conditions but only two are tested. The third test of using an argumetn of "I win" is never checked. This is a contrived case, but assuming it should be kept a unit test should be added that asserts if "I win" is passed, "You win" is returned. If more pessimistic, you could assume no one should ever win and it'd be more appropriate to trim these lines from the codebase.
 
