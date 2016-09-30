@@ -7,7 +7,7 @@ Working with Scala and still learning stuff? Bootstrap examples for a reasonable
 - Build, test and run a scala project from scratch (in less than a minute!)
   - Local setup. Changing your computer's config.
   - VM via Vargrant, Virtualbox and Ansible. Won't change your computer's config.
-- Basic edit, test, code coverage and pack cycle
+- [Basic edit, test, code coverage and pack cycle](https://github.com/jfalkner/Scala-Bootstrap/blob/master/README.md#basic-edit-test-code-coverage-and-pack-cycle)
   - Build via `sbt clean run`
   - Test and Coverage via `sbt coverage test coverageReport`
   - Deploy via `sbt clean coverageOff pack`
