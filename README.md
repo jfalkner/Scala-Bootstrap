@@ -32,20 +32,20 @@ Tests and code coverage are the main items to facilitate code review. Run `sbt c
 ```bash
 $ sbt clean coverage test coverageReport
 
-[info] Loading project definition from /Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/project
-[info] Set current project to Scala Bootstrap (in build file:/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/)
+[info] Loading project definition from Scala-Bootstrap-Basic/project
+[info] Set current project to Scala Bootstrap (in build file:Scala-Bootstrap-Basic/)
 [success] Total time: 0 s, completed Sep 29, 2016 9:38:17 PM
-[info] Set current project to Scala Bootstrap (in build file:/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/)
-[info] Updating {file:/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/}scala-bootstrap-basic...
+[info] Set current project to Scala Bootstrap (in build file:Scala-Bootstrap-Basic/)
+[info] Updating {file:Scala-Bootstrap-Basic/}scala-bootstrap-basic...
 [info] Resolving jline#jline;2.12.1 ...
 [info] Done updating.
-[info] Compiling 1 Scala source to /Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/classes...
-[info] [info] Cleaning datadir [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data]
+[info] Compiling 1 Scala source to Scala-Bootstrap-Basic/target/scala-2.11/classes...
+[info] [info] Cleaning datadir [Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data]
 [info] [info] Beginning coverage instrumentation
 [info] [info] Instrumentation completed [9 statements]
-[info] [info] Wrote instrumentation file [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data/scoverage.coverage.xml]
-[info] [info] Will write measurement data to [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data]
-[info] Compiling 2 Scala sources to /Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/test-classes...
+[info] [info] Wrote instrumentation file [Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data/scoverage.coverage.xml]
+[info] [info] Will write measurement data to [Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data]
+[info] Compiling 2 Scala sources to Scala-Bootstrap-Basic/target/scala-2.11/test-classes...
 [info] CommandLineSpec
 [info]
 [info] Command line usage should
@@ -66,12 +66,12 @@ $ sbt clean coverage test coverageReport
 [info] Passed: Total 3, Failed 0, Errors 0, Passed 3
 [success] Total time: 6 s, completed Sep 29, 2016 9:38:24 PM
 [info] Waiting for measurement data to sync...
-[info] Reading scoverage instrumentation [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data/scoverage.coverage.xml]
+[info] Reading scoverage instrumentation [Scala-Bootstrap-Basic/target/scala-2.11/scoverage-data/scoverage.coverage.xml]
 [info] Reading scoverage measurements...
 [info] Generating scoverage reports...
-[info] Written Cobertura report [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/coverage-report/cobertura.xml]
-[info] Written XML coverage report [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-report/scoverage.xml]
-[info] Written HTML coverage report [/Users/jfalkner/tokeep/git/jfalkner/Scala-Bootstrap-Basic/target/scala-2.11/scoverage-report/index.html]
+[info] Written Cobertura report [Scala-Bootstrap-Basic/target/scala-2.11/coverage-report/cobertura.xml]
+[info] Written XML coverage report [Scala-Bootstrap-Basic/target/scala-2.11/scoverage-report/scoverage.xml]
+[info] Written HTML coverage report [Scala-Bootstrap-Basic/target/scala-2.11/scoverage-report/index.html]
 [info] Statement coverage.: 88.89%
 [info] Branch coverage....: 100.00%
 [info] Coverage reports completed
