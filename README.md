@@ -15,6 +15,8 @@ Working with Scala and still learning stuff? Bootstrap examples for a reasonable
   - Continuous Integration (CI)
   - Peer-review via GitHub PRs
   - [CHANGELOG.md based on `git tag -ln`](https://github.com/jfalkner/Scala-Bootstrap/blob/master/README.md#changelogmd-based-on-git-tag--ln)
+  - [IntelliJ Scala IDE](#intellij-scala-ide)
+  - Netbeans for JVM profiling (local and remote)
 
 Stuff to add when time permits
 - Base repo that has a build.sbt, expected structure, test, coverage and pack
@@ -189,3 +191,29 @@ git push -u bb mycompany_fork
 ```
 
 The convention above is to have a `mycompany_fork` branch as the main branch in your company's copy. You can they make all builds dependent on that and otherwise leave version numbers the same. If you end up altering the source-code, then you'll need to track your own version numbers. e.g. if `1.2.3` is the public repo's version, append another minor for your company's copy: `1.2.3.1`.
+
+## IntelliJ Scala IDE
+
+IntelliJ has a nice Scala IDE. I've used Netbeans for years and still prefer it for JVM profiling (it is free too); however, IntelliJ exposes fast code editing, formatting, code imports and most all of the common, powerful code refactoring tools. Arguably, an easy choice for efficiently working with an Scala codebase.
+
+### Importing SBT Projects
+
+It is trivial to import SBT projects. "New" -> "Project with existing sources..." then pick the directory with your project (for example [Scala-Bootstrap-Basic](https://github.com/jfalkner/Scala-Bootstrap-Basic/)). IntelliJ will auto-import and build everything based on `built.sbt`. Conventiently, this will include any dependencies (such as git repos) and load the source-code too.
+
+TODO: Add some screenshots for Scala-Bootstrap-Basic.
+
+### Increase JVM Memory + Concurrent GC
+
+If IntelliJ seems slow or gets slow the more it is used, it is likely that the JVM needs to be tuned. Use ["Help" -> "Edit Custom VM Options" as per the docs](https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties). Full list of VM options are in [Oracle's Hotspot VM docs](http://www.oracle.com/technetwork/articles/java/vmoptions-jsp-140102.html). This [blog of a dev making similar tweaks](http://www.dggodfrey.com/blog/2014/11/06/fix-slow-intellij-idea/) may be helpful.
+
+The below config should help make the IDE seem quick for most use cases. Keep increasing `-Xmx`, if you have a lot of projects open and things seem slow.
+
+```
+-Xms128m
+-Xmx2048m
+-XX:MaxPermSize=350m
+-XX:ReservedCodeCacheSize=240m
+-XX:+UseCodeCacheFlushing
+-XX:+UseCompressedOops
+-XX:+UseConcMarkSweepGC
+```
