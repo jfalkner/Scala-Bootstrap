@@ -123,6 +123,20 @@ There are a few nice things you can edit or otherwise copy-paste from the basic 
 - The directory structure of Scala Bootstrap Basic is made to work with SBT. It is convenient to have a blank copy of the expected conventions. e.g. `build.sbt`, where to put source files and where to put tests.
 - Make tests and keep test-specific code out of `main/src`. Copy and paste the API and command-line based tests as needed to make your own. `CommandLineUtil` is also a helpful way to buffer stdout and stderr, if you expose a command-line interface. Similar helper traits are a good idea for whatever the main inputs and outputs you expect users to see.
 
+## Continuous Integration (CI)
+TODO: more details on setup and perhaps example Bamboo and AWS based CI.
+
+### Using `sbt`'s command-line flags for cached dependencies
+
+An uncommon error is to have a build get stuck failing due to a cached version of a dependency. The default `sbt` config is to use global caches for Ivy (~/.ivy) and SBT (~/.sbt) dependencies. You can have cases where a URI for a depenedency doesn't change, but the contents do change. For exmaple, a git tag is updated.
+
+You can manually delete local caches to fix this (e.g. `rm -fr ~/.sbt`) but that doesn't help if a CI build is failing and you can't run shell scripts on that server. The solution here is to use [SBT's command-line flags](http://www.scala-sbt.org/0.13/docs/Command-Line-Reference.html) and specify a local cache for the build. A good practice in general.
+
+```
+# use local caches
+sbt -Dsbt.global.base=project/.sbtboot -Dsbt.boot.directory=project/.boot -Dsbt.ivy.home=project/.ivy clean coverage test coverageReport
+```
+
 ## CHANGELOG.md based on `git tag -ln`
 
 ["Semantic Versioning"](http://semver.org/) of the code is helpful. Just use it. Amongst other benefits, it allows a 1-to-1 mapping of a logical identifier such a "0.0.1" to a git commit that represents a release of the code. Adopting this convention means you force developers to `git tag` specific meaningful commits and maintain `built.sbt`'s `version in ThisBuild := "0.0.1"` versioning. 
